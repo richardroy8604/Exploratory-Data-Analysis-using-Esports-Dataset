@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 10: Esports Data Analysis & Insights Presentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #0f172a;
+    --card-bg: #1e293b;
+    --accent-blue: #38bdf8;
+    --accent-purple: #c084fc;
+    --text-light: #f8fafc;
+    --text-muted: #94a3b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-light);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .slide-container {
+    width: 90%;
+    max-width: 1000px;
+    height: 80vh;
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .slide { display: none; opacity: 0; transition: opacity 0.4s ease-in-out; height: 100%; flex-direction: column; justify-content: space-between; }
+  .slide.active { display: flex; opacity: 1; }
+  .slide-header {
+    border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+  }
+  .slide-tag {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent-purple);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  h1, h2 {
+    font-family: 'Outfit', sans-serif;
+    color: var(--accent-blue);
+  }
+  .slide-body {
+    flex-grow: 1;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+    overflow-y: auto;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    height: 100%;
+    align-items: center;
+  }
+  .card {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .metric-box {
+    font-size: 2.2rem;
+    font-weight: 800;
+    font-family: 'Outfit', sans-serif;
+    color: var(--accent-blue);
+    margin-top: 6px;
+  }
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  button {
+    background: #0284c7;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  button:hover { background: #38bdf8; color: #0f172a; }
+  button:disabled { background: #334155; color: #64748b; cursor: not-allowed; }
+  .page-num { font-weight: 600; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div class="slide-container">
+  
+  <!-- Slide 1 -->
+  <div class="slide active">
+    <div class="slide-header">
+      <div class="slide-tag">Slide 1 of 9</div>
+      <h2>Global Esports Data Analysis & Storytelling</h2>
+    </div>
+    <div class="slide-body grid-2">
+      <div>
+        <h1 style="font-size: 2.2rem; margin-bottom: 15px; color: white;">The Financial Architecture of Esports</h1>
+        <p>A comprehensive Exploratory Data Analysis (EDA) on 669 competitive titles and 10,239 monthly historical records using R.</p>
+      </div>
+      <div class="card">
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Key Takeaway</div>
+        <div style="font-size: 1.2rem; margin-top: 8px; font-weight: 600;">Esports prize pools strictly adhere to a Power-Law distribution dominated by elite MOBAs & Battle Royales.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Slide 2 of 9</div>
+      <h2>Dataset Overview & Preprocessing</h2>
+    </div>
+    <div class="slide-body grid-2">
+      <div class="card">
+        <h3>Dataset Dimensions</h3>
+        <p style="margin-top: 10px;">• <b>669</b> Unique Esports Games<br>• <b>8</b> Core Attributes<br>• <b>10,239</b> Historical Monthly Entries</p>
+      </div>
+      <div class="card">
+        <h3>Data Cleaning Actions</h3>
+        <p style="margin-top: 10px;">• Imputed 61 NA values in <i>PercentOffline</i> to 0.0 (games with $0 earnings).<br>• 0 Duplicate records found.<br>• Feature engineering of <b>Log10(Total Earnings + 1)</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Slide 3 of 9</div>
+      <h2>Descriptive Statistics: Skewness & Prize Distribution</h2>
+    </div>
+    <div class="slide-body grid-2">
+      <div class="card">
+        <div style="color: var(--text-muted);">Mean Prize Pool</div>
+        <div class="metric-box">$2,828,053</div>
+        <p style="margin-top: 10px; font-size: 0.9rem;">Distorted upwards by mega-titles like Dota 2 ($360.4M).</p>
+      </div>
+      <div class="card">
+        <div style="color: var(--text-muted);">Median Prize Pool</div>
+        <div class="metric-box">$39,280</div>
+        <p style="margin-top: 10px; font-size: 0.9rem;">Represents the typical financial reality for non-tier-1 games.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Slide 4 of 9</div>
+      <h2>Univariate Analysis: Genre Distribution</h2>
+    </div>
+    <div class="slide-body grid-2">
+      <div class="card">
+        <h3>Most Common Genres</h3>
+        <p style="margin-top: 10px;">1. <b>Fighting Games</b> (189 titles)<br>2. <b>First-Person Shooters</b> (138 titles)<br>3. <b>Sports</b> (98 titles)<br>4. <b>Strategy</b> (68 titles)</p>
+      </div>
+      <div class="card">
+        <h3>Prize Share Paradox</h3>
+        <p style="margin-top: 10px;">Although Fighting Games make up 28% of titles, <b>MOBAs and Battle Royales capture over 65%</b> of global prize dollars.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Slide 5 of 9</div>
+      <h2>Bivariate Analysis: Players vs. Earnings</h2>
+    </div>
+    <div class="slide-body">
+      <div class="card" style="height: 100%;">
+        <h3>Log-Log Scaling Relationship</h3>
+        <p style="margin-top: 10px; line-height: 1.8;">
+          • A strong linear relationship exists between <b>Log10 Active Pro Players</b> and <b>Log10 Prize Earnings</b>.<br>
+          • Expanding tournament infrastructure directly drives player participation and total prize capital.<br>
+          • FPS titles (like CS:GO with 16,518 players) achieve massive grassroots player volume compared to niche genres.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Slide 6 of 9</div>
+      <h2>Correlation Analysis: The LAN Factor</h2>
+    </div>
+    <div class="slide-body grid-2">
+      <div class="card">
+        <div style="color: var(--text-muted);">Offline vs Total Earnings</div>
+        <div class="metric-box" style="color: var(--accent-purple);">r = +0.98</div>
+        <p style="margin-top: 10px;">Physical LAN tournaments represent 98% of total prize allocations.</p>
+      </div>
+      <div class="card">
+        <div style="color: var(--text-muted);">Players vs Tournaments</div>
+        <div class="metric-box">r = +0.74</div>
+        <p style="margin-top: 10px;">More tournaments hosted leads directly to higher active pro player bases.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Slide 7 of 9</div>
+      <h2>Hypothesis Testing: One-Way ANOVA</h2>
+    </div>
+    <div class="slide-body">
+      <div class="card">
+        <h3>ANOVA Formalization</h3>
+        <p style="margin-top: 8px;"><b>H₀:</b> μ_MOBA = μ_FPS = μ_Strategy = ... (Mean log prize earnings are equal across genres)<br><b>H₁:</b> At least one genre has significantly different mean earnings.<br><b>α = 0.05</b></p>
+      </div>
+      <div class="card" style="margin-top: 15px;">
+        <h3>Statistical Test Results</h3>
+        <p style="margin-top: 8px;">• <b>F-Statistic</b> = 6.807 (df = 8, 630)<br>• <b>p-value</b> = 1.36 × 10⁻⁸ (<b>p < 0.001</b>)<br>• <b>Decision:</b> Reject H₀. Prize money differs significantly across genres.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Slide 8 of 9</div>
+      <h2>Data Storytelling: Core Narrative</h2>
+    </div>
+    <div class="slide-body">
+      <div class="card">
+        <p style="font-size: 1rem; line-height: 1.7;">
+          The competitive esports economy functions under a winner-take-all ecosystem. While headline figures like Dota 2's $360M attract public attention, 50% of esports titles earn under $39,280 over their lifetime. Sustained monetization depends on maintaining physical LAN finals and fostering community tournament infrastructure.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 9 -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-tag">Slide 9 of 9</div>
+      <h2>Actionable Recommendations</h2>
+    </div>
+    <div class="slide-body grid-2">
+      <div class="card">
+        <h3>Publishers & Hosts</h3>
+        <p style="margin-top: 8px;">• Build grassroots tournament tiers rather than artificially inflating single events.<br>• Adopt hybrid LAN finals with online qualifiers.</p>
+      </div>
+      <div class="card">
+        <h3>Sponsors & Brands</h3>
+        <p style="margin-top: 8px;">• Target high-growth secondary genres (Mobile Fighting/Battle Royale) for superior ROI per sponsorship dollar.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button id="prevBtn" onclick="changeSlide(-1)" disabled>Previous</button>
+    <div class="page-num" id="pageNum">Slide 1 of 9</div>
+    <button id="nextBtn" onclick="changeSlide(1)">Next</button>
+  </div>
+
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const pageNum = document.getElementById('pageNum');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function updateSlide() {
+    slides.forEach((slide, idx) => {
+      slide.classList.toggle('active', idx === currentSlide);
+    });
+    pageNum.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+    prevBtn.disabled = currentSlide === 0;
+    nextBtn.disabled = currentSlide === slides.length - 1;
+  }
+
+  function changeSlide(direction) {
+    currentSlide += direction;
+    updateSlide();
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) changeSlide(1);
+    if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
+  });
+</script>
+</body>
+</html>
